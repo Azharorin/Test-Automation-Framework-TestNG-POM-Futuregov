@@ -5,7 +5,7 @@
 
     <test name="RegressionTests">
         <classes>
-            <class name="testrunner.LoginTestRunner"/>
+            <class name="testrunner.TestRunner"/>
         </classes>
     </test>
 

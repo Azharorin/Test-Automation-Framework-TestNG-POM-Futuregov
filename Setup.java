@@ -1,5 +1,1 @@
-public class Setup {
-    Pub
-
-
-}
+p

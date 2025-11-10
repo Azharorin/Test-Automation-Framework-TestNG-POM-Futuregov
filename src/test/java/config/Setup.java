@@ -1,33 +1,56 @@
 package config;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import pages.LoginPage;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 
 public class Setup {
-
     public WebDriver driver;
+    public LoginPage loginPage;
 
     @BeforeTest
-    public void setUp() {
-        //WebDriverManager.chromedriver().setup();
-        // driver = new FirefoxDriver();
-        driver = new EdgeDriver();
+    public WebDriver setUp() throws IOException {
+        Properties prop = new Properties();
+        FileInputStream fis = new FileInputStream("C:\\Users\\azhar.alam\\IdeaProjects\\testng-automation-framework-futuregov\\src\\test\\resources\\GlobalData.properties");
+        prop.load(fis);
+        String browserName = prop.getProperty("browser");
+
+        if (browserName.equalsIgnoreCase("chrome")) {
+            driver = new ChromeDriver();
+        } else if (browserName.equalsIgnoreCase("firefox")) {
+            driver = new FirefoxDriver();
+        } else if (browserName.equalsIgnoreCase("edge")) {
+            driver = new EdgeDriver();
+        }
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        //driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
-        driver.get("https://platform.futurenation.gov.bd/");
-        // driver.get("https://idp.futurenation.gov.bd/auth/realms/future-nation-web/protocol/openid-connect/auth?client_id=future-nation&redirect_uri=https%3A%2F%2Fplatform.futurenation.gov.bd&response_type=code&scope=openid+profile+email&state=501ea0e6e0164306bba9d6010abdbef3&code_challenge=DYqSS7LvwxRugzrqcZdV-zJlp-5bhZAQTApr-3Atdcs&code_challenge_method=S256&response_mode=query");
+        return driver;
+    }
+
+    @BeforeMethod
+
+    public LoginPage launchApplication() throws IOException {
+        driver = setUp();
+        loginPage = new LoginPage(driver);
+        loginPage.goTo();
+
+
+        return loginPage;
     }
 
     @AfterTest
     public void closeDriver() {
-        //driver.quit();
+        //driver.close();
+
     }
 }

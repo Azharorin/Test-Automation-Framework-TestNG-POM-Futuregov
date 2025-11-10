@@ -5,16 +5,22 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
+import pages.Profile;
 
-public class LoginTestRunner extends Setup {
+import java.io.IOException;
+
+public class TestRunner extends Setup {
     @Test
-    public void userLogin() {
-        LoginPage loginpage = new LoginPage(driver);
-        loginpage.doclick();
-        loginpage.doLogin("azharalamorin@gmail.com", "Abc@12345");
+    public void userLogin() throws IOException {
+        loginPage = launchApplication();
+
+        Profile profile = loginPage.doLogin("azharalamorin@gmail.com", "Abc@12345");
         String headerprofile = driver.findElement(By.xpath("//a[contains(text(),'My Profile')]")).getText();
         String actualHeader = "My Profile";
         Assert.assertTrue(headerprofile.equals(actualHeader));
+        profile.click_Profile();
+        profile.updateProfile();
+
 
     }
 }

@@ -1,22 +1,14 @@
 package pages;
 
-import org.openqa.selenium.By;
+import abstractComponent.AbstractComponents;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.util.NoSuchElementException;
-import java.util.Set;
+public class LoginPage extends AbstractComponents {
 
-public class LoginPage {
-
-    WebDriver driver;
-    //@FindBy(xpath="(//a[contains(text(),'Sign in')]")
+    public WebDriver driver;
     @FindBy(xpath = "/html/body/div[2]/div/div/header/div/div/div/button")
     WebElement btn;
     @FindBy(xpath = "//input[@name='username']")
@@ -25,8 +17,11 @@ public class LoginPage {
     WebElement passwordTxt;
     @FindBy(xpath = "//input[@name='login']")
     WebElement signinBtn;
+     @FindBy(xpath="//*[@id=\"input-error\"]")
+    public WebElement errorMessage;
 
     public LoginPage(WebDriver driver) {
+        super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -35,11 +30,21 @@ public class LoginPage {
         btn.click();
     }
 
-    public void doLogin(String email, String password) {
+    public Profile doLogin(String email, String password) {
         usernameTxt.sendKeys(email);
         passwordTxt.sendKeys(password);
         signinBtn.click();
+        Profile profile = new Profile(driver);
+        return profile;
 
+    }
+
+    public void goTo() {
+        driver.get("https://platform.futurenation.gov.bd/");
+    }
+
+    public String getErrorMessage() {
+        return errorMessage.getText();
     }
 }
 
