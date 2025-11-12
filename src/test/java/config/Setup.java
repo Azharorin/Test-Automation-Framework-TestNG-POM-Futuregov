@@ -26,7 +26,6 @@ public class Setup {
         Properties prop = new Properties();
         FileInputStream fis = new FileInputStream("C:\\Users\\azhar.alam\\IdeaProjects\\testng-automation-framework-futuregov\\src\\test\\resources\\GlobalData.properties");
         prop.load(fis);
-
         String browserName = prop.getProperty("browser");
         boolean headless = Boolean.parseBoolean(prop.getProperty("headless", "false"));
 
@@ -46,7 +45,6 @@ public class Setup {
                 options.addArguments("--height=1080");
             }
             driver = new FirefoxDriver(options);
-
         } else if (browserName.equalsIgnoreCase("edge")) {
             EdgeOptions options = new EdgeOptions();
             if (headless) {
@@ -54,25 +52,19 @@ public class Setup {
                 options.addArguments("--window-size=1920,1080");
             }
             driver = new EdgeDriver(options);
-
         } else {
             throw new IllegalArgumentException("Unsupported browser: " + browserName);
         }
-
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return driver;
     }
 
-
     @BeforeMethod
-
     public LoginPage launchApplication() throws IOException {
         //driver = setUp();
         loginPage = new LoginPage(driver);
         loginPage.goTo();
-
-
         return loginPage;
     }
 
