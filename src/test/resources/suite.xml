@@ -8,5 +8,9 @@
             <class name="testrunner.TestRunner"/>
         </classes>
     </test>
+    <test name="RegressionTests">
+        <classes><class name="testrunner.ErrorValidation"/>
+        </classes>
+    </test>
 
 </suite>

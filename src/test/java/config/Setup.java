@@ -46,12 +46,12 @@ public class Setup {
             }
             driver = new FirefoxDriver(options);
         } else if (browserName.equalsIgnoreCase("edge")) {
-            EdgeOptions options = new EdgeOptions();
+           /* EdgeOptions options = new EdgeOptions();
             if (headless) {
                 options.addArguments("--headless");
-                options.addArguments("--window-size=1920,1080");
-            }
-            driver = new EdgeDriver(options);
+               options.addArguments("--window-size=1920,1080");
+            }*/
+            driver = new EdgeDriver();
         } else {
             throw new IllegalArgumentException("Unsupported browser: " + browserName);
         }
