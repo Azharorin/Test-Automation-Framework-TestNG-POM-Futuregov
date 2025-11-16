@@ -23,13 +23,16 @@ public class AddDegree extends AbstractComponents {
     @FindBy(xpath = "//*[@id=\":r8:\"]/li[2]")
     WebElement examTEXT;
     @FindBy(css = "body > div.MuiDialog-root.MuiModal-root.css-qciayt > div.MuiDialog-container.MuiDialog-scrollBody.css-r7nd6y > div > form > div.MuiDialogContent-root.MuiDialogContent-dividers.css-1r09u4m > div > div:nth-child(5) > div > div > div > div > div")
-    // @FindBy(xpath="/html/body/div[4]/div[3]/div/form/div[1]/div/div[5]/div/div/div/div/div")
     public WebElement resultDropdown;
-    @FindBy(css = "body > div.MuiDialog-root.MuiModal-root.css-qciayt > div.MuiDialog-container.MuiDialog-scrollBody.css-r7nd6y > div > form > div.MuiDialogContent-root.MuiDialogContent-dividers.css-1r09u4m > div > div:nth-child(2) > div > div.MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.css-kdq3hv > div > div > fieldset")
+    @FindBy(xpath = "//div//ul//li[text()=\"Pass\"]/.")
     public WebElement passTxt;
+    @FindBy(xpath = "//div/em[text()=\"example: 2023 or 2025 (expected)\"]/.")
+    public WebElement passingYearDropdownArrow;
+    @FindBy(xpath = "//div/ul/li[text()=\"2030\"]")
+    public WebElement dropdownPassingYear_Value;
     @FindBy(xpath = "//input[@placeholder=\"example: 1,2,3\"]")
     public WebElement durationInYearTextField;
-    @FindBy(xpath = "//fieldset[@class=\"MuiOutlinedInput-notchedOutline css-igs3ac\"]")
+    @FindBy(xpath = "//input[@placeholder=\"Your achievements\"]")
     public WebElement yourAchievementsTextArea;
     @FindBy(xpath = "//button[@type=\"submit\"]")
     public WebElement submitBtn;
@@ -44,18 +47,19 @@ public class AddDegree extends AbstractComponents {
         institution_nameText.sendKeys("AIUB");
         degreeDropdown.click();
         mastersTXT.click();
-        JavascriptExecutor jss = (JavascriptExecutor) driver;
-        //jss.executeScript("arguments[0].scrollIntoView(true);", examDropDown);
+      /*  JavascriptExecutor jss = (JavascriptExecutor) driver;
+        jss.executeScript("arguments[0].scrollIntoView(true);", examDropDown)*/
+        ;
         examDropDown.click();
         examTEXT.click();
         majorGroupTextArea.sendKeys("CSE");
         resultDropdown.click();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", passTxt);
+        waitForElementToAppearBy(passTxt); // wait until visible
         passTxt.click();
+        passingYearDropdownArrow.click();
+        dropdownPassingYear_Value.click();
         durationInYearTextField.sendKeys("5");
-        Actions actions = new Actions(driver);
-        actions.moveToElement(yourAchievementsTextArea).click().sendKeys("Gold Medalist").perform();
+        waitForElementToAppearBy(yourAchievementsTextArea);
         yourAchievementsTextArea.sendKeys("Gold Medalist");
 
 

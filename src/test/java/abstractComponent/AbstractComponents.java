@@ -43,9 +43,9 @@ public class AbstractComponents {
     }
 
     public void add_DegreeInfo() {
-        waitForElementToAppearBy(addDegreeLinkText); // wait until visible
-       // ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addDegreeLinkText);
-        ///using javascript to click for the element click interceptable excpetion
+        waitForElementToAppearBy(addDegreeLinkText);
+         /*wait until visible((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addDegreeLinkText);
+        using javascript to click for the element click interceptable excpetion*/
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addDegreeLinkText);
 
 
